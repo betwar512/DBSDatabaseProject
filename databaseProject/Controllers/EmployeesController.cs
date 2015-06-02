@@ -26,6 +26,28 @@ namespace databaseProject.Controllers
             return View(employees.ToPagedList(pageNumber:page ?? 1,pageSize:pageSize));
         }
 
+
+        //Get: ContractWorkers : Using View Created in Database 
+        public ActionResult ContractWorkers(int? page) {
+
+            int pageSize = 20;
+      
+            var contractView = db.ContractWorkerViews.OrderBy(e=>e.Id);
+
+            return View(contractView.ToPagedList(pageNumber: page ?? 1, pageSize: pageSize));
+
+        }
+
+
+
+        public ActionResult OfficeWorkers(int? page) {
+
+            var officeWorker = db.OfficeWorkerViews.OrderBy(e => e.Id);
+
+            return View(officeWorker.ToPagedList(pageNumber:page??1,pageSize:20));
+        
+        }
+
         // GET: Employees/Details/5
         public async Task<ActionResult> Details(int? id)
         {

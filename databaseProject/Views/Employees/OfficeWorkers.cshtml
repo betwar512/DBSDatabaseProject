@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<databaseProject.Models.OfficeWorkerView>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "OfficeWorkers";
+}
+
+<h2>OfficeWorkers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+          Name
+        </th>
+        <th>
+           Phone
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+           Address
+        </th>
+        <th>
+            Salary
+        </th>
+        <th>
+           Sex
+        </th>
+        <th>
+           Department_Id
+        </th>
+        <th></th>
+    </tr>
+
+@if (Model != null) { 
+foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department_Id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+  }
+}
+</table>
+
+
+@Html.PagedListPager(Model, page => Url.Action("ContractWorkers", new { page }))
