@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using databaseProject.Models;
+using PagedList;
 
 namespace databaseProject.Controllers
 {
@@ -16,10 +17,13 @@ namespace databaseProject.Controllers
         private M2DbEntities db = new M2DbEntities();
 
         // GET: Employees
-        public async Task<ActionResult> Index()
+        public ActionResult Index(int? page)
         {
-            var employees = db.Employees.Include(e => e.Contract_worker).Include(e => e.Office_worker);
-            return View(await employees.ToListAsync());
+            int pageSize = 20;
+            var employees = db.Employees.Include(e => e.Contract_worker).Include(e => e.Office_worker).OrderBy(e=>e.Employee_Id);
+
+           
+            return View(employees.ToPagedList(pageNumber:page ?? 1,pageSize:pageSize));
         }
 
         // GET: Employees/Details/5

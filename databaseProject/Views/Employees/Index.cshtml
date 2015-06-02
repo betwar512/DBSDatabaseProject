@@ -1,81 +1,90 @@
-﻿@model IEnumerable<databaseProject.Models.Employee>
+﻿@model PagedList.IPagedList<databaseProject.Models.Employee>
+@using PagedList.Mvc;
 
-@{
-    ViewBag.Title = "Index";
-}
+<link href="~/Content/PagedList.css" rel="stylesheet"   type="text/css" />
+     
 
+   
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+ page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+      of @Model.PageCount
+
+
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Salary)
+            Salary
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Birthday)
+           Birthday
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+           Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sex)
+           Sex
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Contract_worker.Specialization)
+           Specialization
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Office_worker.Super_Id)
+            Super_Id
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contract_worker.Specialization)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Office_worker.Super_Id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Employee_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Employee_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Employee_Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contract_worker.Specialization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Office_worker.Super_Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Employee_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Employee_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Employee_Id })
+            </td>
+        </tr>
+    }
 
-</table>
+</table
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
