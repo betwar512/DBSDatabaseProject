@@ -1,0 +1,926 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="M2DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Company_id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Company_id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Company_id" />
+          </Key>
+          <Property Name="Company_id" Type="int" Nullable="false" />
+          <Property Name="Company_name" Type="nchar" MaxLength="10" />
+          <Property Name="Bussines_type" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="Contract_id" />
+          </Key>
+          <Property Name="Contract_id" Type="int" Nullable="false" />
+          <Property Name="Employee_id" Type="int" Nullable="false" />
+          <Property Name="Project_id" Type="int" Nullable="false" />
+          <Property Name="Start_date" Type="date" />
+          <Property Name="End_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Contract_task">
+          <Key>
+            <PropertyRef Name="Contract_id" />
+            <PropertyRef Name="Task_name" />
+          </Key>
+          <Property Name="Contract_id" Type="int" Nullable="false" />
+          <Property Name="Task_name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Task_description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Contract_worker">
+          <Key>
+            <PropertyRef Name="Employee_id" />
+          </Key>
+          <Property Name="Employee_id" Type="int" Nullable="false" />
+          <Property Name="Specialization" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_id" />
+          </Key>
+          <Property Name="Department_id" Type="int" Nullable="false" />
+          <Property Name="Department_name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" />
+          <Property Name="Manager" Type="int" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Office_worker">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="Department_Id" Type="int" />
+          <Property Name="Super_Id" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_id" />
+          </Key>
+          <Property Name="Project_id" Type="int" Nullable="false" />
+          <Property Name="Company_id" Type="int" />
+          <Property Name="Project_name" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Project_status_report">
+          <Key>
+            <PropertyRef Name="Project_id" />
+            <PropertyRef Name="Registration" />
+          </Key>
+          <Property Name="Project_id" Type="int" Nullable="false" />
+          <Property Name="Registration" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Employee_id" Type="int" />
+          <Property Name="Work_hours" Type="nchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nchar" MaxLength="10" />
+          <Property Name="Project_status" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'M2Db.dbo.Contract_worker_Info' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Contract_worker_Info">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+            <PropertyRef Name="Specialization" />
+            <PropertyRef Name="Contract_id" />
+            <PropertyRef Name="Project_id" />
+          </Key>
+          <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Specialization" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contract_id" Type="int" Nullable="false" />
+          <Property Name="Project_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'M2Db.dbo.ContractWorkerView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ContractWorkerView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Specialization" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" />
+          <Property Name="Specialization" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'M2Db.dbo.OfficeWorkerView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OfficeWorkerView">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" />
+          <Property Name="Department_Id" Type="int" />
+        </EntityType>
+        <Association Name="FK_Branch_To_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Company_id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="Company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_task_ToContract">
+          <End Role="Contract" Type="Self.Contract" Multiplicity="1" />
+          <End Role="Contract_task" Type="Self.Contract_task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Contract_id" />
+            </Principal>
+            <Dependent Role="Contract_task">
+              <PropertyRef Name="Contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_To_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="Project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_worker_ToTable">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Contract_worker" Type="Self.Contract_worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Contract_worker">
+              <PropertyRef Name="Employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_worker_ToDepartment">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Office_worker" Type="Self.Office_worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_id" />
+            </Principal>
+            <Dependent Role="Office_worker">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_worker_ToEmployee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Office_worker" Type="Self.Office_worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Office_worker">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_status_report_ToProject">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Project_status_report" Type="Self.Project_status_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_id" />
+            </Principal>
+            <Dependent Role="Project_status_report">
+              <PropertyRef Name="Project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ToCompany">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Company_id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="populateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="M2DbModelStoreContainer">
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract" EntityType="Self.Contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract_task" EntityType="Self.Contract_task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract_worker" EntityType="Self.Contract_worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Office_worker" EntityType="Self.Office_worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project_status_report" EntityType="Self.Project_status_report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract_worker_Info" EntityType="Self.Contract_worker_Info" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Contract_worker_Info].[Employee_Id] AS [Employee_Id], 
+    [Contract_worker_Info].[name] AS [name], 
+    [Contract_worker_Info].[Specialization] AS [Specialization], 
+    [Contract_worker_Info].[Contract_id] AS [Contract_id], 
+    [Contract_worker_Info].[Project_id] AS [Project_id]
+    FROM [dbo].[Contract_worker_Info] AS [Contract_worker_Info]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ContractWorkerView" EntityType="Self.ContractWorkerView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ContractWorkerView].[Id] AS [Id], 
+    [ContractWorkerView].[Name] AS [Name], 
+    [ContractWorkerView].[Phone] AS [Phone], 
+    [ContractWorkerView].[Email] AS [Email], 
+    [ContractWorkerView].[Address] AS [Address], 
+    [ContractWorkerView].[Salary] AS [Salary], 
+    [ContractWorkerView].[Sex] AS [Sex], 
+    [ContractWorkerView].[Specialization] AS [Specialization]
+    FROM [dbo].[ContractWorkerView] AS [ContractWorkerView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OfficeWorkerView" EntityType="Self.OfficeWorkerView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OfficeWorkerView].[Id] AS [Id], 
+    [OfficeWorkerView].[Name] AS [Name], 
+    [OfficeWorkerView].[Phone] AS [Phone], 
+    [OfficeWorkerView].[Email] AS [Email], 
+    [OfficeWorkerView].[Address] AS [Address], 
+    [OfficeWorkerView].[Salary] AS [Salary], 
+    [OfficeWorkerView].[Sex] AS [Sex], 
+    [OfficeWorkerView].[Department_Id] AS [Department_Id]
+    FROM [dbo].[OfficeWorkerView] AS [OfficeWorkerView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Branch_To_Company" Association="Self.FK_Branch_To_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_task_ToContract" Association="Self.FK_Contract_task_ToContract">
+            <End Role="Contract" EntitySet="Contract" />
+            <End Role="Contract_task" EntitySet="Contract_task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_To_Project" Association="Self.FK_Contract_To_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_worker_ToTable" Association="Self.FK_Contract_worker_ToTable">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Contract_worker" EntitySet="Contract_worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_worker_ToDepartment" Association="Self.FK_Office_worker_ToDepartment">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Office_worker" EntitySet="Office_worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_worker_ToEmployee" Association="Self.FK_Office_worker_ToEmployee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Office_worker" EntitySet="Office_worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_status_report_ToProject" Association="Self.FK_Project_status_report_ToProject">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Project_status_report" EntitySet="Project_status_report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ToCompany" Association="Self.FK_Project_ToCompany">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="M2DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Company_id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Company_id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Branch_To_Company" FromRole="Branch" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Company_id" />
+          </Key>
+          <Property Name="Company_id" Type="Int32" Nullable="false" />
+          <Property Name="Company_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Bussines_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK_Branch_To_Company" FromRole="Company" ToRole="Branch" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_Project_ToCompany" FromRole="Company" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="Contract_id" />
+          </Key>
+          <Property Name="Contract_id" Type="Int32" Nullable="false" />
+          <Property Name="Employee_id" Type="Int32" Nullable="false" />
+          <Property Name="Project_id" Type="Int32" Nullable="false" />
+          <Property Name="Start_date" Type="DateTime" Precision="0" />
+          <Property Name="End_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Contract_task" Relationship="Self.FK_Contract_task_ToContract" FromRole="Contract" ToRole="Contract_task" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Contract_To_Project" FromRole="Contract" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Contract_task">
+          <Key>
+            <PropertyRef Name="Contract_id" />
+            <PropertyRef Name="Task_name" />
+          </Key>
+          <Property Name="Contract_id" Type="Int32" Nullable="false" />
+          <Property Name="Task_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Task_description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contract" Relationship="Self.FK_Contract_task_ToContract" FromRole="Contract_task" ToRole="Contract" />
+        </EntityType>
+        <EntityType Name="Contract_worker">
+          <Key>
+            <PropertyRef Name="Employee_id" />
+          </Key>
+          <Property Name="Employee_id" Type="Int32" Nullable="false" />
+          <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Contract_worker_ToTable" FromRole="Contract_worker" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_id" />
+          </Key>
+          <Property Name="Department_id" Type="Int32" Nullable="false" />
+          <Property Name="Department_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Manager" Type="Int32" />
+          <NavigationProperty Name="Office_worker" Relationship="Self.FK_Office_worker_ToDepartment" FromRole="Department" ToRole="Office_worker" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Contract_worker" Relationship="Self.FK_Contract_worker_ToTable" FromRole="Employee" ToRole="Contract_worker" />
+          <NavigationProperty Name="Office_worker" Relationship="Self.FK_Office_worker_ToEmployee" FromRole="Employee" ToRole="Office_worker" />
+        </EntityType>
+        <EntityType Name="Office_worker">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <Property Name="Department_Id" Type="Int32" />
+          <Property Name="Super_Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Office_worker_ToDepartment" FromRole="Office_worker" ToRole="Department" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Office_worker_ToEmployee" FromRole="Office_worker" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_id" />
+          </Key>
+          <Property Name="Project_id" Type="Int32" Nullable="false" />
+          <Property Name="Company_id" Type="Int32" />
+          <Property Name="Project_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Project_ToCompany" FromRole="Project" ToRole="Company" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK_Contract_To_Project" FromRole="Project" ToRole="Contract" />
+          <NavigationProperty Name="Project_status_report" Relationship="Self.FK_Project_status_report_ToProject" FromRole="Project" ToRole="Project_status_report" />
+        </EntityType>
+        <EntityType Name="Project_status_report">
+          <Key>
+            <PropertyRef Name="Project_id" />
+            <PropertyRef Name="Registration" />
+          </Key>
+          <Property Name="Project_id" Type="Int32" Nullable="false" />
+          <Property Name="Registration" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Employee_id" Type="Int32" />
+          <Property Name="Work_hours" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Project_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Project_status_report_ToProject" FromRole="Project_status_report" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Contract_worker_Info">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+            <PropertyRef Name="Specialization" />
+            <PropertyRef Name="Contract_id" />
+            <PropertyRef Name="Project_id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contract_id" Type="Int32" Nullable="false" />
+          <Property Name="Project_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContractWorkerView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Specialization" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfficeWorkerView">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Department_Id" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Branch_To_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Company_id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="Company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ToCompany">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Company_id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_task_ToContract">
+          <End Role="Contract" Type="Self.Contract" Multiplicity="1" />
+          <End Role="Contract_task" Type="Self.Contract_task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Contract_id" />
+            </Principal>
+            <Dependent Role="Contract_task">
+              <PropertyRef Name="Contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_To_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="Project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_worker_ToTable">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Contract_worker" Type="Self.Contract_worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Contract_worker">
+              <PropertyRef Name="Employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_worker_ToDepartment">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Office_worker" Type="Self.Office_worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_id" />
+            </Principal>
+            <Dependent Role="Office_worker">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_worker_ToEmployee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Office_worker" Type="Self.Office_worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Office_worker">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_status_report_ToProject">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Project_status_report" Type="Self.Project_status_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_id" />
+            </Principal>
+            <Dependent Role="Project_status_report">
+              <PropertyRef Name="Project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="M2DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Contracts" EntityType="Self.Contract" />
+          <EntitySet Name="Contract_task" EntityType="Self.Contract_task" />
+          <EntitySet Name="Contract_worker" EntityType="Self.Contract_worker" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Office_worker" EntityType="Self.Office_worker" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Project_status_report" EntityType="Self.Project_status_report" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Contract_worker_Info" EntityType="Self.Contract_worker_Info" />
+          <EntitySet Name="ContractWorkerViews" EntityType="Self.ContractWorkerView" />
+          <EntitySet Name="OfficeWorkerViews" EntityType="Self.OfficeWorkerView" />
+          <AssociationSet Name="FK_Branch_To_Company" Association="Self.FK_Branch_To_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ToCompany" Association="Self.FK_Project_ToCompany">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_task_ToContract" Association="Self.FK_Contract_task_ToContract">
+            <End Role="Contract" EntitySet="Contracts" />
+            <End Role="Contract_task" EntitySet="Contract_task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_To_Project" Association="Self.FK_Contract_To_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Contract" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_worker_ToTable" Association="Self.FK_Contract_worker_ToTable">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Contract_worker" EntitySet="Contract_worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_worker_ToDepartment" Association="Self.FK_Office_worker_ToDepartment">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Office_worker" EntitySet="Office_worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_worker_ToEmployee" Association="Self.FK_Office_worker_ToEmployee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Office_worker" EntitySet="Office_worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_status_report_ToProject" Association="Self.FK_Project_status_report_ToProject">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Project_status_report" EntitySet="Project_status_report" />
+          </AssociationSet>
+          <FunctionImport Name="populateEmployee" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(M2DbModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(M2DbModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="M2DbModelStoreContainer" CdmEntityContainer="M2DbEntities">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="M2DbModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="Company_id" ColumnName="Company_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="M2DbModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Company_id" ColumnName="Company_id" />
+                <ScalarProperty Name="Company_name" ColumnName="Company_name" />
+                <ScalarProperty Name="Bussines_type" ColumnName="Bussines_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="M2DbModel.Contract">
+              <MappingFragment StoreEntitySet="Contract">
+                <ScalarProperty Name="Contract_id" ColumnName="Contract_id" />
+                <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+                <ScalarProperty Name="Project_id" ColumnName="Project_id" />
+                <ScalarProperty Name="Start_date" ColumnName="Start_date" />
+                <ScalarProperty Name="End_date" ColumnName="End_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contract_task">
+            <EntityTypeMapping TypeName="M2DbModel.Contract_task">
+              <MappingFragment StoreEntitySet="Contract_task">
+                <ScalarProperty Name="Contract_id" ColumnName="Contract_id" />
+                <ScalarProperty Name="Task_name" ColumnName="Task_name" />
+                <ScalarProperty Name="Task_description" ColumnName="Task_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contract_worker">
+            <EntityTypeMapping TypeName="M2DbModel.Contract_worker">
+              <MappingFragment StoreEntitySet="Contract_worker">
+                <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="M2DbModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+                <ScalarProperty Name="Department_name" ColumnName="Department_name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="M2DbModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Office_worker">
+            <EntityTypeMapping TypeName="M2DbModel.Office_worker">
+              <MappingFragment StoreEntitySet="Office_worker">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+                <ScalarProperty Name="Super_Id" ColumnName="Super_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="M2DbModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Project_id" ColumnName="Project_id" />
+                <ScalarProperty Name="Company_id" ColumnName="Company_id" />
+                <ScalarProperty Name="Project_name" ColumnName="Project_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project_status_report">
+            <EntityTypeMapping TypeName="M2DbModel.Project_status_report">
+              <MappingFragment StoreEntitySet="Project_status_report">
+                <ScalarProperty Name="Project_id" ColumnName="Project_id" />
+                <ScalarProperty Name="Registration" ColumnName="Registration" />
+                <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+                <ScalarProperty Name="Work_hours" ColumnName="Work_hours" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Project_status" ColumnName="Project_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="M2DbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contract_worker_Info">
+            <EntityTypeMapping TypeName="M2DbModel.Contract_worker_Info">
+              <MappingFragment StoreEntitySet="Contract_worker_Info">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+                <ScalarProperty Name="Contract_id" ColumnName="Contract_id" />
+                <ScalarProperty Name="Project_id" ColumnName="Project_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContractWorkerViews">
+            <EntityTypeMapping TypeName="M2DbModel.ContractWorkerView">
+              <MappingFragment StoreEntitySet="ContractWorkerView">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfficeWorkerViews">
+            <EntityTypeMapping TypeName="M2DbModel.OfficeWorkerView">
+              <MappingFragment StoreEntitySet="OfficeWorkerView">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="populateEmployee" FunctionName="M2DbModel.Store.populateEmployee" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="M2DbModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="M2DbModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="M2DbModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="M2DbModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="M2DbModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="M2DbModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="M2DbModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="M2DbModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="M2DbModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
