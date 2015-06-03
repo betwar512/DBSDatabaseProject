@@ -16,6 +16,11 @@ namespace databaseProject.Controllers
     {
         private M2DbEntities db = new M2DbEntities();
 
+
+        public ActionResult search() {
+            return View("Search");
+        }
+
         // GET: Employees
         public ActionResult Index(int? page)
         {
@@ -25,7 +30,33 @@ namespace databaseProject.Controllers
            
             return View(employees.ToPagedList(pageNumber:page ?? 1,pageSize:pageSize));
         }
+        //GET:Employees/findEmployee
+        public PartialViewResult findEmployee(string passedString)
+        {
+            int int_id = Convert.ToInt32(passedString);
+            string query = "SELECT * FROM Employee WHERE Employee_id = " + passedString;
+            var employee = db.Employees.SqlQuery(query);
+            return PartialView("Employee",employee);
+        }
 
+        //GET: EMployee Salary min and max ,Range Search 
+        public PartialViewResult employeeSalarySearch(string min,string max)
+        {
+          
+            var employee = db.Employees.SqlQuery("SELECT * FROM Employee where salary <" + max + " AND salary >" + min).ToList();
+
+            return PartialView("Employee",employee);
+        }
+
+        //GET: Employees/SEx
+        public PartialViewResult findSex(string sex)
+        {
+
+            string query = "select * from Employee where sex = " + sex;
+            var employees = db.Employees.SqlQuery(query).ToList();
+
+            return PartialView("Employee", employees);
+        }
 
         //Get: ContractWorkers : Using View Created in Database 
         public ActionResult ContractWorkers(int? page) {
@@ -39,7 +70,7 @@ namespace databaseProject.Controllers
         }
 
 
-
+        //Get: OfficeWorkers : using view 
         public ActionResult OfficeWorkers(int? page) {
 
             var officeWorker = db.OfficeWorkerViews.OrderBy(e => e.Id);

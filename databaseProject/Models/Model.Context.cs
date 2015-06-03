@@ -37,10 +37,12 @@ namespace databaseProject.Models
         public virtual DbSet<Office_worker> Office_worker { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Project_status_report> Project_status_report { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Contract_worker_Info> Contract_worker_Info { get; set; }
         public virtual DbSet<ContractWorkerView> ContractWorkerViews { get; set; }
         public virtual DbSet<OfficeWorkerView> OfficeWorkerViews { get; set; }
+        public virtual DbSet<Department_Info> Department_Info { get; set; }
+        public virtual DbSet<Office_worker_info> Office_worker_info { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
     
         public virtual int populateEmployee()
         {

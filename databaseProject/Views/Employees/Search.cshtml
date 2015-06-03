@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+
+
+
+
+<div class="col-lg-8 col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-info-circle fa-5x"></i>
+                </div>
+                <div class="col-xs-9">
+                    <div class="Huge">Search by Id Slary Gender </div>
+                    <div class="small"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.Label("search Employee by id")
+            @Html.TextBox("searchBox")
+            <input id="searchBtn" type="button" class="btn-primary" onclick="search()" value="find Employee" />
+        </div>
+        <div>
+            @Html.Label("search by salary range")
+            @Html.TextBox("Min")
+            @Html.TextBox("Max")
+            <input id="searchBtn" type="button" class="btn-primary" onclick="salarySearch()" value="find employee Slary" />
+        </div>
+    </div>
+</div>
+
+
+<div id="employee">
+
+
+</div>
+<script>
+    function search() {
+        var searchString = $("#searchBox").val();
+        $.ajax({
+            url: '/Employees/findEmployee',
+            contentType: 'application/html; charset=utf-8',
+            data: { passedString: searchString },
+            type: 'Get',
+            dataType: 'html'
+        })
+        .success(function (result) {
+
+            $('#employee').html(result);
+        })
+        .error(function (xhr, status) {
+            alert(status);
+        })
+
+    }
+
+
+    function salarySearch() {
+        var min = $("#Min").val();
+        var max = $("#Max").val();
+        $.ajax({
+            url: '/Employees/employeeSalarySearch',
+            contentType: 'application/html; charset=utf-8',
+            data: { min:min,max:max},
+            type: 'Get',
+            dataType: 'html'
+        })
+        .success(function (result) {
+
+            $('#employee').html(result);
+        })
+        .error(function (xhr, status) {
+            alert(status);
+        })
+
+    }
+</script>
