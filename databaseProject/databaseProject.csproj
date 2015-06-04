@@ -373,6 +373,7 @@
     <Content Include="Views\Select\contractProject.cshtml" />
     <Content Include="Views\Select\Index.cshtml" />
     <Content Include="Views\Select\projectStatusReport_hours.cshtml" />
+    <Content Include="Views\Select\contractTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

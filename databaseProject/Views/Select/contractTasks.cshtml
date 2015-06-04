@@ -1,0 +1,33 @@
+﻿@model IEnumerable<databaseProject.Models.Contract_task>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Task_description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contract.Contract_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Task_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contract.Contract_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
