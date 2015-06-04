@@ -1,49 +1,35 @@
-﻿@model PagedList.IPagedList<databaseProject.Models.Employee>
-@using PagedList.Mvc;
+﻿
+@model IEnumerable<databaseProject.Models.Employee_project_Result>
 
-<link href="~/Content/PagedList.css" rel="stylesheet"   type="text/css" />
-
-<h2>Index</h2>
-
- page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-      of @Model.PageCount
-
-@Html.Label("search by id")
-@Html.TextBox("searchBox")
-<input id="searchBtn" type="button" onclick="search()" value="find Customer" />
-
-<div id="employee">
-
-</div>
 
 <table class="table">
     <tr>
         <th>
-            Name
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            Salary
+            @Html.DisplayNameFor(model => model.Salary)
         </th>
         <th>
-           Birthday
+            @Html.DisplayNameFor(model => model.Birthday)
         </th>
         <th>
-           Address
+            @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
-            Phone
+            @Html.DisplayNameFor(model => model.Phone)
         </th>
         <th>
-            Email
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-           Sex
+            @Html.DisplayNameFor(model => model.Sex)
         </th>
         <th>
-           Specialization
+            @Html.DisplayNameFor(model => model.Manager_Name)
         </th>
         <th>
-            Super_Id
+            @Html.DisplayNameFor(model => model.Department_Name)
         </th>
         <th></th>
     </tr>
@@ -73,10 +59,10 @@
                 @Html.DisplayFor(modelItem => item.Sex)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contract_worker.Specialization)
+                @Html.DisplayFor(modelItem => item.Manager_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Office_worker.Super_Id)
+                @Html.DisplayFor(modelItem => item.Department_Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Employee_Id }) |
@@ -86,29 +72,4 @@
         </tr>
     }
 
-</table
-
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
-
-
-<script>
-    function search() {
-        var searchString = $("#searchBox").val();
-        $.ajax({
-            url: '/Employees/findEmployee',
-            contentType: 'application/html; charset=utf-8',
-            data: { passedString: searchString },
-            type: 'Get',
-            dataType: 'html'
-        })
-        .success(function (result) {
-
-            $('#employee').html(result);
-        })
-        .error(function (xhr, status) {
-            alert(status);
-        })
-
-    }
-</script>
+</table>

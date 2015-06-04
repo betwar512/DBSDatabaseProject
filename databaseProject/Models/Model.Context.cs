@@ -151,5 +151,10 @@ namespace databaseProject.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<Employee_project_Result> Employee_project()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee_project_Result>("Employee_project");
+        }
     }
 }

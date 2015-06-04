@@ -26,8 +26,6 @@ namespace databaseProject.Controllers
         {
             int pageSize = 20;
             var employees = db.Employees.Include(e => e.Contract_worker).Include(e => e.Office_worker).OrderBy(e=>e.Employee_Id);
-
-           
             return View(employees.ToPagedList(pageNumber:page ?? 1,pageSize:pageSize));
         }
         //GET:Employees/findEmployee

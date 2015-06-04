@@ -183,7 +183,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -220,6 +219,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee_project_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -282,6 +284,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Icon.png" />
+    <Content Include="Models\Model.edmx.sql" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -319,7 +322,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -360,18 +365,17 @@
     <Content Include="Views\Companies\Details.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\Branches\Create.cshtml" />
-    <Content Include="Views\Branches\Delete.cshtml" />
-    <Content Include="Views\Branches\Details.cshtml" />
-    <Content Include="Views\Branches\Edit.cshtml" />
     <Content Include="Views\Employees\Employee.cshtml" />
     <Content Include="Views\Employees\Search.cshtml" />
     <Content Include="Views\Company.cshtml" />
+    <Content Include="Views\Select\projectStatusReport.cshtml" />
+    <Content Include="Views\Select\Employee_department.cshtml" />
+    <Content Include="Views\Select\contractProject.cshtml" />
+    <Content Include="Views\Select\Index.cshtml" />
+    <Content Include="Views\Select\projectStatusReport_hours.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Branch\" />
-    <Folder Include="Views\Select\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

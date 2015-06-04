@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="col-lg-8 col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-info-circle fa-5x"></i>
+                </div>
+                <div class="col-xs-9">
+                    <div class="Huge">Search by Id Slary Gender </div>
+                    <div class="small"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.Label("Find contracts belong to project Search by Id please")
+            @Html.TextBox("projectId")
+            <input id="searchBtn" type="button" class="btn-primary" onclick="projectContracts()" value="Contracts" />
+        </div>
+        <div>
+            @Html.Label("find the contractTasks , Search by contract Id please")
+            @Html.TextBox("contractId")
+          
+            <input id="searchBtn" type="button" class="btn-primary" onclick="contractTasks()" value="Contract Tasks" />
+        </div>
+        <div>
+            @Html.Label("search by Project_hours")
+            @Html.TextBox("Hours")
+
+            <input id="searchBtn" type="button" class="btn-primary" onclick="projectHours()" value="find employees" />
+        </div>
+    </div>
+</div>
+
+<div id="divPlace">
+
+</div>
+
+<script>
+    function projectContracts() {
+        var projectId = $("#projectId").val();
+        $.ajax({
+            url: '/Select/contractProject',
+            contentType: 'application/html; charset=utf-8',
+            data: { projectId: projectId },
+            type: 'Get',
+            dataType: 'html'
+        })
+        .success(function (result) {
+            $('#divPlace').html(result);
+         
+        })
+        .error(function (xhr, status) {
+            alert(status);
+        })
+
+    }
+
+
+    function contractTasks() {
+        var contractId = $("#contractId").val();
+        
+        $.ajax({
+            url: '/Select/contractTasks',
+            contentType: 'application/html; charset=utf-8',
+            data: { contractId: contractId },
+            type: 'Get',
+            dataType: 'html'
+        })
+        .success(function (result) {
+            $('#divPlace').html(result);
+        })
+        .error(function (xhr, status) {
+            alert(status);
+        })
+
+    }
+
+
+    function projectHours() {
+        var hours = $("#Hours").val();
+        $.ajax({
+            url: '/Select/projectStatusReport_hours',
+            contentType: 'application/html; charset=utf-8',
+            data: { hours: hours },
+            type: 'Get',
+            dataType: 'html'
+        })
+        .success(function (result) {
+
+            $('#divPlace').html(result);
+        })
+        .error(function (xhr, status) {
+            alert(status);
+        })
+
+    }
+</script>
